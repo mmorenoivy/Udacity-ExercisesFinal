@@ -23,8 +23,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 /**
  * We couldn't come up with a good name for this class. Then, we realized
  * that this lesson is about RecyclerView.
@@ -39,20 +37,6 @@ import org.w3c.dom.Text;
  */
 public class GreenAdapter extends RecyclerView.Adapter<GreenAdapter.NumberViewHolder> {
 
-    // TODO (1) Create a layout resource in res/layout/ called number_list_item.xml done
-
-    // Do steps 2 - 11 within number_list_item.xml
-    // TODO (2) Make the root layout a FrameLayout done
-    // TODO (3) Make the width match_parent and the height wrap_content done
-    // TODO (4) Set the padding to 16dp done
-    // TODO (5) Add a TextView as the only child of the FrameLayout done
-    // TODO (6) Give the TextView an ID "@+id/tv_item_number" done
-    // TODO (7) Set the height and width to wrap_content done
-    // TODO (8) Align the TextView to the start of the parent done
-    // TODO (9) Center the TextView vertically in the layout done
-    // TODO (10) Set the font family to monospace done
-    // TODO (11) Set the text size to 42sp done
-
     private static final String TAG = GreenAdapter.class.getSimpleName();
 
     private int mNumberItems;
@@ -66,7 +50,6 @@ public class GreenAdapter extends RecyclerView.Adapter<GreenAdapter.NumberViewHo
     public GreenAdapter(int numberOfItems) {
         mNumberItems = numberOfItems;
     }
-
     /**
      *
      * This gets called when each new ViewHolder is created. This happens when the RecyclerView
@@ -82,7 +65,7 @@ public class GreenAdapter extends RecyclerView.Adapter<GreenAdapter.NumberViewHo
     @Override
     public NumberViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
-        int layoutIdForListItem = R.layout.number_list_view;
+        int layoutIdForListItem = R.layout.number_list_item;
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
 
@@ -119,29 +102,34 @@ public class GreenAdapter extends RecyclerView.Adapter<GreenAdapter.NumberViewHo
         return mNumberItems;
     }
 
+    /**
+     * Cache of the children views for a list item.
+     */
+    class NumberViewHolder extends RecyclerView.ViewHolder {
 
-    // TODO (12) Create a class called NumberViewHolder that extends RecyclerView.ViewHolder done
-    class NumberViewHolder extends RecyclerView.ViewHolder
-    {
-    // TODO (13) Within NumberViewHolder, create a TextView variable called listItemNumberView done
+        // Will display the position in the list, ie 0 through getItemCount() - 1
         TextView listItemNumberView;
 
-    // TODO (14) Create a constructor for NumberViewHolder that accepts a View called itemView as a parameter done
-        public NumberViewHolder(View itemView)
-        {
-            // TODO (15) Within the constructor, call super(itemView) and then find listItemNumberView by ID done
+        /**
+         * Constructor for our ViewHolder. Within this constructor, we get a reference to our
+         * TextViews and set an onClickListener to listen for clicks. Those will be handled in the
+         * onClick method below.
+         * @param itemView The View that you inflated in
+         *                 {@link GreenAdapter#onCreateViewHolder(ViewGroup, int)}
+         */
+        public NumberViewHolder(View itemView) {
             super(itemView);
 
             listItemNumberView = (TextView) itemView.findViewById(R.id.tv_item_number);
         }
-        // TODO (16) Within the NumberViewHolder class, create a void method called bind that accepts an int parameter called listIndex done
-        void bind(int listIndex)
-        {
-            // TODO (17) Within bind, set the text of listItemNumberView to the listIndex done
-            // TODO (18) Be careful to get the String representation of listIndex, as using setText with an int does something different done
+
+        /**
+         * A method we wrote for convenience. This method will take an integer as input and
+         * use that integer to display the appropriate text within a list item.
+         * @param listIndex Position of the item in the list
+         */
+        void bind(int listIndex) {
             listItemNumberView.setText(String.valueOf(listIndex));
         }
-
-
     }
 }
